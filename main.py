@@ -210,7 +210,9 @@ if __name__ == "__main__":
     model = None
     if configer.get('method') == 'fcn_segmentor':
         if configer.get('phase') == 'train':
-            from segmentor.trainer import Trainer
+            # from segmentor.trainer import Trainer
+            # model = Trainer(configer)
+            from segmentor.trainer_contrastive import Trainer
             model = Trainer(configer)
         elif configer.get('phase') == 'test':
             from segmentor.tester import Tester 

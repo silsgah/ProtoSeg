@@ -209,7 +209,9 @@ class Trainer(object):
                     backward_loss = loss
                     display_loss = reduce_tensor(backward_loss) / get_world_size()
             else:
-                backward_loss = display_loss = self.pixel_loss(outputs, targets)
+                with torch.autocast("cuda"):
+                    backward_loss = display_loss = self.pixel_loss(outputs, targets)
+                # backward_loss = display_loss = self.pixel_loss(outputs, targets)
 
             self.train_losses.update(display_loss.item(), batch_size)
             self.loss_time.update(time.time() - loss_start_time)
